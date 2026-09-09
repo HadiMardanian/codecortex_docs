@@ -1,12 +1,612 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>My Site</title>
-  </head>
-  <body>
-    <h1>Hello from GitHub Pages 🚀</h1>
-    <p>Replace the files in <code>public/</code> with your real static site.</p>
-  </body>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>راهنمای فارسی CodeCortex — موتور کانتکست برای ایجنت‌های برنامه‌نویسی</title>
+<meta name="description" content="ترجمه و توضیح ساده و آموزشی کامل مستندات CodeCortex به فارسی: چیست، چگونه کار می‌کند، نصب، و use caseهای کاربردی." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0e1a; --bg2:#0d1326; --card:#111a30; --card2:#0f1729;
+    --line:rgba(148,163,184,.14); --line2:rgba(148,163,184,.25);
+    --txt:#e2e8f0; --muted:#94a3b8; --dim:#64748b;
+    --indigo:#818cf8; --cyan:#22d3ee; --green:#34d399; --amber:#fbbf24; --rose:#fb7185;
+    --grad:linear-gradient(90deg,#818cf8,#22d3ee);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  body{
+    font-family:'Vazirmatn',Tahoma,sans-serif;background:var(--bg);color:var(--txt);
+    line-height:2;font-size:16px;-webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--cyan);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ── Nav ── */
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,14,26,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:20px;height:60px;overflow-x:auto;scrollbar-width:none}
+  nav .brand{font-weight:900;white-space:nowrap;color:var(--txt);font-size:15px;display:flex;align-items:center;gap:8px}
+  nav .brand .dot{width:26px;height:26px;border-radius:8px;background:var(--grad);display:grid;place-items:center;font-size:14px}
+  nav a.item{color:var(--muted);font-size:13.5px;white-space:nowrap;padding:4px 10px;border-radius:8px}
+  nav a.item:hover{color:var(--txt);background:rgba(129,140,248,.1);text-decoration:none}
+
+  /* ── Hero ── */
+  header.hero{position:relative;padding:96px 0 80px;overflow:hidden;border-bottom:1px solid var(--line)}
+  header.hero::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(600px 300px at 80% 0%,rgba(34,211,238,.12),transparent 70%),
+    radial-gradient(700px 350px at 15% 100%,rgba(129,140,248,.13),transparent 70%);}
+  header.hero::after{content:"";position:absolute;inset:0;background-image:
+    linear-gradient(rgba(148,163,184,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(148,163,184,.05) 1px,transparent 1px);
+    background-size:44px 44px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 75%)}
+  .hero .wrap{position:relative;z-index:1}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--cyan);border:1px solid rgba(34,211,238,.3);background:rgba(34,211,238,.07);padding:5px 14px;border-radius:999px;margin-bottom:22px}
+  h1.title{font-size:clamp(30px,5.5vw,52px);font-weight:900;line-height:1.5;margin-bottom:14px}
+  h1.title .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .slogan{font-size:clamp(17px,2.6vw,22px);color:var(--indigo);font-weight:700;margin-bottom:18px}
+  .hero p.lead{color:var(--muted);max-width:760px;font-size:16.5px;margin-bottom:30px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:11px 24px;border-radius:12px;font-weight:700;font-size:14.5px;transition:.2s}
+  .btn:hover{text-decoration:none;transform:translateY(-2px)}
+  .btn.primary{background:var(--grad);color:#0a0e1a}
+  .btn.ghost{border:1px solid var(--line2);color:var(--txt)}
+  .btn.ghost:hover{border-color:var(--indigo)}
+  .stat{display:inline-flex;gap:8px;margin-top:34px;margin-inline-end:26px;color:var(--dim);font-size:13px;align-items:center}
+  .stat b{color:var(--txt)}
+
+  /* ── Sections ── */
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  .sec-badge{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--cyan);letter-spacing:.5px;margin-bottom:10px}
+  h2{font-size:clamp(23px,3.4vw,31px);font-weight:900;margin-bottom:14px;line-height:1.6}
+  h3{font-size:19px;font-weight:800;margin:34px 0 12px}
+  section p{color:var(--muted);margin-bottom:14px}
+  section p b, li b{color:var(--txt)}
+  ul.plain{list-style:none}
+  ul.plain li{padding-inline-start:22px;position:relative;color:var(--muted);margin-bottom:8px}
+  ul.plain li::before{content:"◂";position:absolute;inset-inline-start:0;color:var(--indigo)}
+  ol.steps{counter-reset:s;list-style:none}
+  ol.steps li{counter-increment:s;position:relative;padding-inline-start:44px;margin-bottom:16px;color:var(--muted)}
+  ol.steps li::before{content:counter(s);position:absolute;inset-inline-start:0;top:6px;width:30px;height:30px;border-radius:10px;background:rgba(129,140,248,.14);border:1px solid rgba(129,140,248,.35);color:var(--indigo);font-weight:800;display:grid;place-items:center;font-size:14px}
+  .hl{background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);border-radius:14px;padding:18px 20px;margin:20px 0;color:var(--txt)}
+  .hl.amber{background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.3)}
+  .hl.green{background:rgba(52,211,153,.07);border-color:rgba(52,211,153,.3)}
+  .hl .t{font-weight:800;margin-bottom:6px;display:flex;gap:8px;align-items:center}
+
+  /* ── Code ── */
+  pre{direction:ltr;text-align:left;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13.5px;line-height:1.8;
+    background:#0b1020;border:1px solid var(--line);border-radius:14px;padding:18px 20px;overflow-x:auto;margin:14px 0;color:#cbd5e1}
+  pre .c{color:#5b6b8c}
+  pre .p{color:#7dd3fc}
+  code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.88em;background:rgba(129,140,248,.12);color:#a5b4fc;padding:2px 7px;border-radius:6px;direction:ltr;unicode-bidi:embed}
+  pre code{background:none;padding:0;color:inherit}
+
+  /* ── Tables ── */
+  .tbl{width:100%;border-collapse:collapse;margin:18px 0;font-size:14.5px}
+  .tbl th{background:rgba(129,140,248,.1);color:var(--txt);font-weight:800;text-align:right;padding:11px 14px;border:1px solid var(--line)}
+  .tbl td{padding:10px 14px;border:1px solid var(--line);color:var(--muted);vertical-align:top}
+  .tbl tr:hover td{background:rgba(148,163,184,.04)}
+  .tbl td code{white-space:nowrap}
+  .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:999px;white-space:nowrap}
+  .tag.exact{background:rgba(52,211,153,.14);color:var(--green)}
+  .tag.near{background:rgba(34,211,238,.14);color:var(--cyan)}
+  .tag.struct{background:rgba(129,140,248,.14);color:var(--indigo)}
+  .tag.inf{background:rgba(251,191,36,.12);color:var(--amber)}
+  .tag.weak{background:rgba(148,163,184,.14);color:var(--muted)}
+
+  /* ── Cards ── */
+  .grid{display:grid;gap:16px;margin-top:22px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;transition:.2s}
+  .card:hover{border-color:var(--line2);transform:translateY(-3px)}
+  .card .ic{font-size:24px;margin-bottom:10px}
+  .card h4{font-size:15.5px;font-weight:800;margin-bottom:8px}
+  .card p{font-size:13.5px;margin:0;line-height:1.9}
+  .flow{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;font-size:14px;color:var(--muted);margin:14px 0;direction:ltr;text-align:center;font-family:'Vazirmatn',sans-serif}
+  .flow b{color:var(--cyan)}
+
+  .uc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 28px;margin-top:20px}
+  .uc h3{margin-top:0}
+  .uc .meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .uc .meta span{font-size:12px;border:1px solid var(--line2);border-radius:999px;padding:3px 12px;color:var(--muted)}
+  .uc .meta span.ok{color:var(--green);border-color:rgba(52,211,153,.4)}
+
+  footer{padding:44px 0 60px;color:var(--dim);font-size:13.5px;text-align:center}
+  footer a{color:var(--muted)}
+  @media(max-width:640px){section{padding:46px 0}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand"><span class="dot">🧠</span> CodeCortex به زبان ساده</span>
+    <a class="item" href="#quickstart">شروع سریع</a>
+    <a class="item" href="#features">قابلیت‌ها</a>
+    <a class="item" href="#fusion">سطوح اعتماد</a>
+    <a class="item" href="#usecases">Use caseها</a>
+    <a class="item" href="#agents">اتصال ایجنت‌ها</a>
+    <a class="item" href="#commands">مرجع دستورات</a>
+    <a class="item" href="#faq">سوالات متداول</a>
+    <a class="item" href="https://github.com/BehnamJalaliCo/CodeCortex" style="color:var(--cyan)">↗ ریپو اصلی</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">📖 راهنمای فارسی، ساده و آموزشی — ترجمهٔ کامل مستندات رسمی</span>
+    <h1 class="title"><span class="g">CodeCortex</span> چیست؟<br />موتور کانتکست برای ایجنت‌های برنامه‌نویسی</h1>
+    <div class="slogan">«قبل از اینکه ایجنت حدس بزند، ریپو باید بتواند خودش را توضیح بدهد.»</div>
+    <p class="lead">
+      CodeCortex یک ابزار متن‌باز (Apache 2.0) است که بین ایجنت هوش‌مصنوعیِ شما (مثل Claude Code، Cursor یا Codex) و کدبیستان می‌نشیند.
+      کل ریپو را ایندکس می‌کند — ساختار، توابع، روابط، تاریخچهٔ Git، تصمیم‌های تیم — و برای هر سؤال یا تسک،
+      <b>کوچک‌ترین بستهٔ شواهدِ مفید</b> را تحویل ایجنت می‌دهد؛ به‌جای اینکه مدل مجبور شود نصف ریپو را باز کند و همه‌چیز را از صفر حدس بزند.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="#quickstart">🚀 شروع در ۶۰ ثانیه</a>
+      <a class="btn ghost" href="#usecases">💼 Use caseهای کاربردی</a>
+      <a class="btn ghost" href="#intro">🔍 از اول بخوان</a>
+    </div>
+    <div>
+      <span class="stat">🐍 <b>Python 3.11–3.13</b></span>
+      <span class="stat">📄 <b>Apache 2.0</b></span>
+      <span class="stat">🧪 <b>711 تست پاس‌شده</b></span>
+      <span class="stat">⚡ <b>جست‌وجوی تعریف: ~0.2ms</b></span>
+      <span class="stat">🧭 <b>وضعیت: Alpha</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ چیست ═══════════ -->
+<section id="intro">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۱ — توضیح ساده</span>
+    <h2>CodeCortex در یک جمله + یک تشبیه</h2>
+    <div class="hl">
+      <div class="t">💡 تعریف رسمی (ترجمهٔ ساده)</div>
+      «CodeCortex یک ریپوی نرم‌افزاری را به یک <b>سیستم شواهدِ مخصوص همان سؤال</b> تبدیل می‌کند تا ایجنت برنامه‌نویسی، به‌جای حدس زدن، با نقشه و مدرک جلو برود.»
+    </div>
+    <p>
+      <b>تشبیه:</b> فرض کنید یک مهندس نابغه استخدام کرده‌اید (مدل هوش مصنوعی) ولی به او نه نقشهٔ ساختمان داده‌اید، نه چارت سازمانی، نه مستندات و نه تاریخچهٔ پروژه.
+      هر روز ساعت‌ها وقتش صرف گم‌شدن می‌شود. CodeCortex همان <b>کتابخانه‌دار و راهنمای ساختمان</b> است که کنارش می‌ایستد و می‌گوید:
+      «برای این سؤال، این ۵ فایل، این ۱۲ فراخوانی، این ۲ تغییر اخیر و این تصمیم قدیمی تیم را ببین — همین و بس.»
+    </p>
+    <ul class="plain">
+      <li>❌ یک چت‌بات دیگر نیست.</li>
+      <li>❌ سرویس‌دهندهٔ مدل (Model Provider) نیست و خودش هوش مصنوعی اجرا نمی‌کند.</li>
+      <li>❌ ادعا نمی‌کند ایجنت را بی‌خطا می‌کند.</li>
+      <li>✅ <b>زیرساخت کانتکست</b> است: چیزی که کیفیت اطلاعاتِ ورودی به استدلال (reasoning) ایجنت را بهتر می‌کند.</li>
+    </ul>
+    <div class="hl green">
+      <div class="t">⭐ قاعدهٔ طلایی پروژه</div>
+      <b>«اول evidence را پیدا کن، بعد با confidence حرف بزن.»</b> — یعنی: اول مدرک، بعد اطمینان.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ مشکل ═══════════ -->
+<section id="problem">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۲ — مسئله</span>
+    <h2>چه مشکلی را حل می‌کند؟</h2>
+    <p>مدل قوی می‌تواند کد بخواند؛ مسئلهٔ سخت این است که بداند <b>کدام کد اهمیت دارد، چه چیزی به چه چیزی وصل است، چه چیزی عوض شده، و اگر تغییر اشتباه باشد چه چیزی می‌شکند.</b></p>
+    <h3>😩 بدون موتور کانتکست (جریان حدس‌زدن)</h3>
+    <div class="flow">
+      جست‌وجوی اسم فایل → باز کردن فایل‌های بزرگ → کشفِ دوبارهٔ معماری → حدس رفرنس‌ها →
+      گشتنِ دستی در Git → حدس وسعت آسیب → مصرف زیاد کانتکست → ویرایش → کشفِ دیرهنگام یک وابستگی پنهان!
+    </div>
+    <h3>😎 با CodeCortex (جریان شواهدمحور)</h3>
+    <div class="flow">
+      تسک → تشخیص نیت → جمع‌آوری شواهد → رتبه‌بندی برای همین تسک → حفظ منبع و عدم‌قطعیت →
+      جا شدن در بودجهٔ توکن → یک سطح واحد برای ایجنت → اعتبارسنجی تغییرِ پیشنهادی
+    </div>
+    <div class="hl">
+      <div class="t">🎯 نکتهٔ کلیدی</div>
+      هدف «کانتکست بیشتر» نیست؛ هدف <b>«شواهدِ مفیدتر به‌ازای هر توکن»</b> است. پنجرهٔ کانتکست بزرگ این مشکل را حل نمی‌کند — کیفیت شواهد و حجم آن دو مسئلهٔ جدایند.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ معماری ═══════════ -->
+<section id="how">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۳ — معماری به زبان ساده</span>
+    <h2>چگونه کار می‌کند؟ (مدل ذهنی ۳۰ ثانیه‌ای)</h2>
+<pre>
+┌────────────────────┐
+│    Coding Agent    │   ← Claude Code / Cursor / Codex ...
+└─────────┬──────────┘
+          │  تسک
+┌─────────▼──────────┐
+│     CodeCortex     │   نقشه · سیمبل‌ها · گراف · تاریخچه
+│                    │   جست‌وجو · حافظه · impact · اعتبارسنجی
+└─────────┬──────────┘
+          │  بستهٔ کوچک شواهدِ رتبه‌بندی‌شده
+┌─────────▼──────────┐
+│    Coding Agent    │   حالا با «نقشهٔ بهتر» استدلال می‌کند
+└────────────────────┘
+</pre>
+    <p>ایجنت همچنان خودش استدلال و کدنویسی می‌کند؛ CodeCortex فقط عوض می‌کند که <b>با چه اطلاعاتی</b> استدلال می‌کند.</p>
+    <h3>۹ جزء داخلی (از سند ARCHITECTURE رسمی — ساده‌شده)</h3>
+    <div class="grid g3">
+      <div class="card"><div class="ic">🚪</div><h4>Gateway (درب ورودی)</h4><p>هر درخواست از CLI یا MCP اول از اینجا وارد می‌شود.</p></div>
+      <div class="card"><div class="ic">🧭</div><h4>Router (مسیریاب)</h4><p>نیتِ سؤال را تشخیص می‌دهد: «تعریف می‌خواهی؟ impact؟ تاریخچه؟» و موتورهای درست را انتخاب می‌کند.</p></div>
+      <div class="card"><div class="ic">🎼</div><h4>Orchestrator</h4><p>نقشهٔ مسیر را اجرا می‌کند و نتایج موتورها را ترکیب می‌کند.</p></div>
+      <div class="card"><div class="ic">⚙️</div><h4>Engines (موتورها)</h4><p>ریپو، سیمبل، کانتکست، حافظه و اعتبارسنجی — هرکدام یک توانایی جدا و قابل‌جایگزین.</p></div>
+      <div class="card"><div class="ic">📦</div><h4>Context Pipeline</h4><p>شواهد را رتبه‌بندی، حذف‌تکرار و برش می‌زند تا داخل «بودجهٔ توکن» جا شوند.</p></div>
+      <div class="card"><div class="ic">🧠</div><h4>Memory (حافظه)</h4><p>تصمیم‌ها و حقایق ماندگار پروژه و تیم را نگه می‌دارد — فراتر از یک چت.</p></div>
+      <div class="card"><div class="ic">🔬</div><h4>Evidence Providers</h4><p>سه لایهٔ کاملاً اختیاری (دقیق، وابستگی، ساختاری) که شواهدِ قوی‌تر اضافه می‌کنند.</p></div>
+      <div class="card"><div class="ic">📈</div><h4>Telemetry</h4><p>مسیریابی، زمان‌ها و سلامت موتورها را ثبت می‌کند تا رفتار سیستم قابل بازرسی باشد.</p></div>
+      <div class="card"><div class="ic">🔌</div><h4>Interfaces</h4><p>سطح‌های اتصال: CLI، سرور MCP و APIهای آینده.</p></div>
+    </div>
+    <div class="hl amber">
+      <div class="t">⚠️ مهم‌ترین اصل معماری</div>
+      <b>سورس کد همچنان منبع حقیقت است.</b> گراف، حافظه، جست‌وجوی معنایی و خلاصه‌ها فقط «برای فهم بهتر» هستند و هیچ‌وقت جای سورس فعلی، کانفیگ و تست‌ها را نمی‌گیرند.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ قابلیت‌ها ═══════════ -->
+<section id="features">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۴ — قابلیت‌ها</span>
+    <h2>چه کارهایی از دستش برمی‌آید؟</h2>
+    <table class="tbl">
+      <tr><th style="width:26%">قابلیت</th><th>به زبان ساده یعنی...</th></tr>
+      <tr><td><b>🗺️ نقشهٔ ریپو</b></td><td>همهٔ فایل‌ها و ساختار پروژه را ایندکس می‌کند تا ایجنت یک نقشهٔ محدود و دقیق داشته باشد، نه یک جنگل پوشه.</td></tr>
+      <tr><td><b>🔤 سیمبل‌های چندزبانه</b></td><td>توابع، کلاس‌ها و متغیرها را با «هویت» می‌شناسد — نه فقط با جست‌وجوی اسم فایل. تعریف و رفرنس هر نماد را دقیق پیدا می‌کند.</td></tr>
+      <tr><td><b>🕸️ گراف وابستگی و فراخوانی</b></td><td>ثبت می‌کند چه کسی چه کسی را صدا می‌زند و چه کسی به چه کسی وابسته است — پایهٔ navigation و تحلیل impact.</td></tr>
+      <tr><td><b>🔍 جست‌وجوی هیبریدی</b></td><td>سه نوع جست‌وجو با هم: واژگانی (کلمه‌ها)، معنایی (مفهوم) و ساختاری (شکل کد در AST) — چون «کد، متنِ معمولی نیست».</td></tr>
+      <tr><td><b>🕰️ هوش Git و PR</b></td><td>تاریخچه، blame، مالکیت و churn هر فایل/سیمبل قابل پرس‌وجو می‌شود؛ دیفِ هر PR به سیمبل‌ها، تست‌های متأثر و امتیاز ریسک وصل می‌شود.</td></tr>
+      <tr><td><b>💥 تحلیل Impact (شعاع آسیب)</b></td><td>قبل از ویرایش می‌گوید: «اگر این را عوض کنی، این ۲۳ فراخوانی و این ۴ تست تحت‌تأثیرند.»</td></tr>
+      <tr><td><b>🏛️ معماری و Drift</b></td><td>معماریِ واقعی کد را (با سطح اطمینان) استنباط می‌کند، یک اثرانگشت ذخیره می‌کند و بعداً انحراف معماری را گزارش می‌دهد.</td></tr>
+      <tr><td><b>🧠 حافظهٔ پروژه و تیم</b></td><td>تصمیم‌های ماندگار مثل «JWT را گذاشتیم چون...» ذخیره می‌شود تا ایجنت دوباره رویکرد ردشده را پیشنهاد ندهد.</td></tr>
+      <tr><td><b>✏️ ویرایش کنترل‌شده</b></td><td>rename/replace/insert معنایی با preflight، و مهاجرت‌های ساختاری که اول preview می‌دهند، هش‌چک می‌شوند، اتمیک می‌نویسند و rollback دارند.</td></tr>
+      <tr><td><b>🔌 سرور MCP</b></td><td>یک سطح استاندارد که ایجنت‌های MCP-پذیر به آن وصل می‌شوند؛ همهٔ قابلیت‌ها از یک دری.</td></tr>
+      <tr><td><b>🧪 دقت سیمبل (Precision)</b></td><td>وقتی دو پکیج هم‌نام کلاس export می‌کنند، با هویت سیمبل تشخیص می‌دهد کدام‌کدام است — نه شیرِ‌یا‌خطا.</td></tr>
+      <tr><td><b>📚 هوش وابستگی</b></td><td>تفکیک «نسخهٔ اعلام‌شده» از «نسخهٔ واقعاً resolve‌شده» و پاسخ به اینکه ریپو واقعاً کدام API را اجرا می‌کند.</td></tr>
+      <tr><td><b>🖥️ داشبورد Observatory</b></td><td>سلامت موتور، traceها، drift معماری و ریسک PRها را یک‌جا نشان می‌دهد.</td></tr>
+      <tr><td><b>🌐 فضای کاری چندریپویی</b></td><td>frontend/backend/contracts جدا هستند ولی جست‌وجو و شواهد بین‌شان federate می‌شود.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ دکترین ═══════════ -->
+<section id="doctrine">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۵ — فلسفهٔ طراحی</span>
+    <h2>۸ دکترین (قوانین مهندسی، نه شعار تبلیغاتی)</h2>
+    <div class="grid g2">
+      <div class="card"><div class="ic">⚖️</div><h4>۰۱ — اول شواهد، بعد اطمینان</h4><p>دقیق، استنباطی، مبهم، گمشده یا کهنه — هر مدرک با برچسب جداگانه گزارش می‌شود، نه همه با یک سطح اطمینان.</p></div>
+      <div class="card"><div class="ic">📦</div><h4>۰۲ — کوچک‌ترین کانتکستِ کافی</h4><p>بهترین بسته، بزرگ‌ترین چیزی که جا شود نیست؛ کم‌حجم‌ترین چیزی است که برای همین تسک کافی باشد.</p></div>
+      <div class="card"><div class="ic">📜</div><h4>۰۳ — سورس، سورس می‌ماند</h4><p>حافظه «چرا» را توضیح می‌دهد، Git «چطور رسیدیم»، گراف «چه چیزی به چه چیزی» — ولی حقیقتِ اجرایی فقط سورس، کانفیگ و تست است.</p></div>
+      <div class="card"><div class="ic">❓</div><h4>۰۴ — ابهام خودش اطلاعات است</h4><p>اگر دو سیمبل محتمل‌اند، ایجنت باید هر دو را ببیند؛ «در دسترس نیست» بهتر از «موفقِ ساختگی» است.</p></div>
+      <div class="card"><div class="ic">💥</div><h4>۰۵ — هر تغییر شعاع آسیب دارد</h4><p>دیف کوچک می‌تواند پرریسک باشد و دیف بزرگ می‌تواند مکانیکی. سؤال درست: چه کسی به این وابسته است و کدام تستش را پوشش می‌دهد؟</p></div>
+      <div class="card"><div class="ic">🔒</div><h4>۰۶ — لوکال‌فرست یک تصمیم اعتماد است</h4><p>هسته بدون اینترنت کار می‌کند؛ هر مرز شبکه‌ای، کلید و انتقال داده باید صریح و قابل‌مشاهده باشد.</p></div>
+      <div class="card"><div class="ic">🔁</div><h4>۰۷ — بازتولیدپذیری از عددِ چشمگیر مهم‌تر است</h4><p>ادعای عملکرد بدون spec، محیط و artifact قابل بازتولید، شاهد نیست — این پروژه اعداد ساختگی منتشر نمی‌کند.</p></div>
+      <div class="card"><div class="ic">🧩</div><h4>۰۸ — مقیاس با هماهنگی صریح</h4><p>ورکرها هویت، قابلیت و lease دارند؛ حافظهٔ مشترک قواعد تعارض دارد؛ ابزار ریموت auth و policy دارد.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ Evidence Fusion ═══════════ -->
+<section id="fusion">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۶ — لایهٔ Evidence Fusion</span>
+    <h2>به هر جواب می‌گوید «چقدر مطمئن است»</h2>
+    <p>جالب‌ترین ایدهٔ CodeCortex این است که هر نتیجه‌ای که به ایجنت می‌دهد، یک <b>درجهٔ اعتماد (trust tier)</b> دارد؛ یعنی ایجنت می‌داند این جواب «دقیق» است یا فقط یک «حدسِ قوی»:</p>
+    <table class="tbl">
+      <tr><th style="width:32%">درجهٔ اعتماد</th><th>یعنی چه؟</th><th>از کجا می‌آید؟</th></tr>
+      <tr><td><span class="tag exact">exact — دقیق</span></td><td>قطعی و تازه</td><td>ایندکس یا کامپایلرِ تازه</td></tr>
+      <tr><td><span class="tag near">near_exact — تقریباً دقیق</span></td><td>حل‌شدهٔ زنده</td><td>Language Server زنده</td></tr>
+      <tr><td><span class="tag struct">structural — ساختاری</span></td><td>تطابق نحوی واقعی</td><td>پارس AST یا داکیومنتِ هم‌نسخه</td></tr>
+      <tr><td><span class="tag inf">inferred_high — استنباط قوی</span></td><td>رابطهٔ گرافی قوی</td><td>گراف، یا شاهد exact کهنه‌شده</td></tr>
+      <tr><td><span class="tag inf">inferred — استنباطی</span></td><td>حدسِ بین‌فایلی</td><td>هیوریستیک‌های رابطه</td></tr>
+      <tr><td><span class="tag weak">weak — ضعیف</span></td><td>تصادفِ کلمات</td><td>تطابق لغوی ساده</td></tr>
+    </table>
+    <h3>سه قانون محافظتی که در کد اجرا می‌شوند (نه فقط در مستندات!)</h3>
+    <ol class="steps">
+      <li><b>شاهد کهنه هرگز بالاتر از شاهد ساختاریِ تازه رتبه نمی‌گیرد.</b> دادهٔ exact اما قدیمی، توی امتیازش ضریب می‌خورد و پایین می‌رود.</li>
+      <li><b>«exact» و «کهنه» هرگز هم‌زمان نمی‌شوند.</b> دقت دربارهٔ «الان» است؛ چیزی که تاریخ گذشته شده نمی‌تواند دقیق باشد.</li>
+      <li><b>هیچ لایه‌ای نمی‌تواند درجهٔ اعتماد خودش را بالا ببرد.</b> سقف اعتماد به «روش» بستگی دارد، نه به اعتمادبه‌نفسِ موتور.</li>
+    </ol>
+    <div class="hl">
+      <div class="t">🧩 سه لایهٔ اختیاری که شواهد را تقویت می‌کنند</div>
+      <b>۱. Precision Code Intelligence:</b> از ایندکس کامپایلری استفاده می‌کند تا تعریف/رفرنس را با هویت سیمبل حل کند.<br />
+      <b>۲. Dependency Intelligence:</b> manifest + lockfile + نسخهٔ واقعی را کنار هم می‌گذارد و داکیومنتِ همان نسخه را می‌آورد.<br />
+      <b>۳. Structural Search & Rewrite:</b> کد را با الگوی نحوی پیدا می‌کند — فراخوانیِ واقعی <code>old_api($X)</code> را می‌بیند، نه کامنتی که اسمش را آورده!
+      <br /><br />هر سه اختیاری‌اند؛ هستهٔ CodeCortex بدون هیچ‌کدام و بدون اینترنت دقیقاً مثل قبل کار می‌کند.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ شروع سریع ═══════════ -->
+<section id="quickstart">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۷ — شروع سریع (واقعاً ۶۰ ثانیه)</span>
+    <h2>نصب و اولین اجرا</h2>
+    <p>پیش‌نیاز: <b>Python 3.11 تا 3.13</b>. همین!</p>
+    <ol class="steps">
+      <li><b>نصب پکیج:</b>
+<pre><code>python -m pip install --upgrade codecortex-context-engine</code></pre>
+        <span style="font-size:13.5px">اختیاری: پارسرهای بیشتر <code>pip install "codecortex-context-engine[parsers]"</code> · جست‌وجوی معنایی عصبی لوکال <code>pip install "codecortex-context-engine[semantic]"</code></span>
+      </li>
+      <li><b>داخل ریپو، راه‌اندازی و ایندکس:</b>
+<pre><code><span class="c"># داخل پوشهٔ پروژه‌تان</span>
+cortex init .      <span class="c"># ساخت کانفیگ در .codecortex/</span>
+cortex index       <span class="c"># ساخت ایندکس و گراف ریپو</span>
+cortex doctor      <span class="c"># چک سلامت: چه چیزی فعال/غایب است</span></code></pre>
+      </li>
+      <li><b>از ریپو سؤال بپرسید:</b>
+<pre><code>cortex architecture                        <span class="c"># معماری ریپو را استنباط کن</span>
+cortex semantic "authentication and session lifecycle"
+cortex impact AuthService                  <span class="c"># اگر این را عوض کنم چه می‌شکند؟</span>
+cortex symbol-history src/auth.py 10 80    <span class="c"># تاریخچهٔ یک سیمبل</span></code></pre>
+      </li>
+      <li><b>یا ریپو را به ایجنت برنامه‌نویسی وصل کنید:</b>
+<pre><code>cortex mcp --path .</code></pre>
+      </li>
+      <li><b>دموی آماده را ببینید (اختیاری):</b>
+<pre><code><span class="c"># داخل کلون خود ریپوی CodeCortex</span>
+python scripts/demo.py    <span class="c"># ایندکس ریپوی نمونه + تحلیل blast radius + routing</span></code></pre>
+      </li>
+    </ol>
+    <div class="hl green">
+      <div class="t">✅ نتیجهٔ <code>cortex doctor</code> چه می‌گوید؟</div>
+      وضعیت هر لایه: <code>available</code> (فعال) · <code>stale</code> (ایندکس قدیمی) · <code>unavailable</code> (نصب نیست) · <code>disabled</code> (خاموش) — و هیچ‌وقت «غایب» را «موفق» جل نمی‌دهد.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ اتصال ایجنت‌ها ═══════════ -->
+<section id="agents">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۸ — اتصال به ایجنت‌های برنامه‌نویسی</span>
+    <h2>با Claude Code، Cursor، Codex و... حرف بزند</h2>
+    <p>CodeCortex یک سرور <b>MCP</b> (Model Context Protocol) داخلی دارد — یعنی ایجنت‌هایی که MCP را پشتیبانی می‌کنند می‌توانند مستقیم از قابلیت‌هایش استفاده کنند. کانفیگرِ خودش، ورودی مربوط به CodeCortex را به‌صورت <b>merge-safe</b> به فایل کانفیگ ایجنت اضافه می‌کند و بقیهٔ تنظیمات شما دست‌نخورده می‌ماند (با بکاپ هم می‌گیرد):</p>
+    <table class="tbl">
+      <tr><th>ایجنت</th><th>فایل کانفیگ</th></tr>
+      <tr><td>Claude Code</td><td><code>.mcp.json</code></td></tr>
+      <tr><td>Codex</td><td><code>.codex/config.toml</code></td></tr>
+      <tr><td>Cursor</td><td><code>.cursor/mcp.json</code></td></tr>
+      <tr><td>Gemini CLI</td><td><code>.gemini/settings.json</code></td></tr>
+      <tr><td>OpenCode</td><td><code>opencode.json</code></td></tr>
+    </table>
+<pre><code><span class="c"># ۱) ببین چه ایجنت‌هایی نصب است</span>
+cortex agents detect
+
+<span class="c"># ۲) اول بدون تغییر — پیش‌نمایش بگیر</span>
+cortex agents configure --dry-run
+
+<span class="c"># ۳) همه را یک‌جا وصل کن</span>
+cortex agents configure --all</code></pre>
+    <p>از این بعد ایجنت شما می‌تواند این‌ها را مستقیم درخواست کند: نقشهٔ ریپو، جست‌وجوی سیمبل، رفرنس‌ها، گراف وابستگی، تحلیل impact، جست‌وجوی هیبریدی، «کانتکست فشرده با بودجهٔ مشخص»، معماری، تاریخچهٔ Git، تحلیل PR، حافظهٔ پروژه، جست‌وجوی چندریپویی، traceها و اعتبارسنجی.</p>
+  </div>
+</section>
+
+<!-- ═══════════ Use cases ═══════════ -->
+<section id="usecases">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۹ — آموزش کاربردی</span>
+    <h2>💼 Use caseهای واقعی، گام‌به‌گام</h2>
+    <p>این سناریوها همان «جریان‌های تسک» و جدول Engineering Use Cases در مستندات رسمی‌اند — با ترجمه و مثال عملی:</p>
+
+    <div class="uc">
+      <h3>🏗️ ۱ — آنبوردینگ: ریپوی ۲۰۰ هزار خطیِ ناآشنا</h3>
+      <div class="meta"><span>شروع با: architecture + نقشهٔ ریپو</span><span class="ok">راستی‌آزمایی: سورس + مسیرهای اجرا</span></div>
+      <p>تازه وارد تیم شده‌اید. به‌جای باز کردن فایل‌های تصادفی:</p>
+<pre><code>cortex architecture        <span class="c"># معماری واقعی با سطح اطمینان</span>
+cortex semantic "billing and invoice lifecycle"   <span class="c"># مسیر قلمرو کاری</span>
+cortex dashboard           <span class="c"># داشبورد: نقاط داغ گراف، drift، ریسک PRها</span></code></pre>
+      <p><b>چه به‌دست می‌آورید؟</b> ماژول‌های واقعی، جهت وابستگی‌ها، نقاط داغ (hotspot) — قبل از خواندن حتی یک خط کد.</p>
+    </div>
+
+    <div class="uc">
+      <h3>🐛 ۲ — دیباگ: «لاگین بعضی کاربرها رندوم fail می‌شود»</h3>
+      <div class="meta"><span>شروع با: semantic + سیمبل + تاریخچه</span><span class="ok">راستی‌آزمایی: تست‌های هدفمند</span></div>
+<pre><code>cortex semantic "session refresh and token expiry"
+cortex impact refresh_token            <span class="c"># چه کسی به این وابسته است؟</span>
+cortex symbol-history src/auth.py 10 80  <span class="c"># اخیراً چه عوض شده؟ چه کسی مالکش است؟</span></code></pre>
+      <p><b>بررسی درست باید جواب بدهد:</b> رفتار کجا پیاده شده؟ چه callerهایی در مسیرند؟ چه چیزی اخیراً عوض شده؟ کدام مسیر جایگزین فرضیه را رد می‌کند؟ <b>کدام تست باید fail شود اگر توضیحت غلط است؟</b> کوچک‌ترین تغییر امن چیست؟ — CodeCortex این شش سؤال را یک‌جا جواب می‌دهد.</p>
+    </div>
+
+    <div class="uc">
+      <h3>🔧 ۳ — ریفکتور امن: rename در کل ریپو</h3>
+      <div class="meta"><span>شروع با: references + impact</span><span class="ok">راستی‌آزمایی: ویرایش مرحله‌ای + تست‌های قراردادی</span></div>
+<pre><code>cortex references src/auth.py 12 7    <span class="c"># همهٔ رفرنس‌های این سیمبل</span>
+cortex impact AuthService             <span class="c"># ۲۳ caller و ۴ تست متأثر</span>
+cortex edit rename src/auth.py AuthService SessionService
+<span class="c"># بعدش: اعتبارسنجی و تست‌ها</span></code></pre>
+      <p><b>نظم تغییر در CodeCortex:</b> «به‌اندازهٔ کافی بخوان ← impact را بفهم ← محدود تغییر بده ← اعتبارسنجی کن». <b>نه:</b> «همه‌جا replace کن ← امیدوار باش تست‌ها بگیرند!»</p>
+    </div>
+
+    <div class="uc">
+      <h3>📦 ۴ — مهاجرت وابستگی: کامل‌ترین سناریو (مثال رسمی مستندات)</h3>
+      <div class="meta"><span>شروع با: imports + usage + فرض‌های نسخه</span><span class="ok">راستی‌آزمایی: چک‌های سازگاری</span></div>
+      <p>هدف: «middleware احراز هویت را به APIِ نسخه‌ای که این ریپو واقعاً استفاده می‌کند، مهاجرت بده.» جریان رسمی:</p>
+<pre><code><span class="c"># ۱) نسخهٔ واقعاً resolve‌شده چه است؟ (نه چیزی که manifest ادعا می‌کند)</span>
+cortex dependency next
+
+<span class="c"># ۲) همهٔ فراخوانی‌های ساختاری API قدیمی را پیدا کن (نه کامنت‌ها را!)</span>
+cortex structural-search --lang python --pattern 'old_api($X)'
+
+<span class="c"># ۳) پیش‌نمایش مهاجرت + تحلیل impact خودکار</span>
+cortex rewrite-preview --lang python --pattern 'old_api($X)' --replacement 'new_api($X)'
+
+<span class="c"># ۴) بعد از بازبینی preview — اعمال امن</span>
+cortex rewrite-apply &lt;preview-id&gt;</code></pre>
+      <p><b>چرخهٔ عمر rewrite (۱۲ گام محافظتی):</b> جست‌وجوی ساختاری ← محدودیت‌ها (تعداد فایل/مطابقت/بایت) ← تحلیل impact ← preview ذخیره‌شده با SHA-256 هر فایل ← اعمال فقط با id و مجوز ← هش‌چکِ دوباره (اگر فایل وسط کار عوض شده باشد، تراکنش abort می‌شود!) ← نوشتن اتمیک با rollback ← reindex ← اعتبارسنجی ← گزارش impact بعد از تغییر.</p>
+      <div class="hl green"><div class="t">📊 اثر واقعی (بنچمارک رسمی روی ریپوهای fixture)</div>
+      تشخیص سیمبل هم‌نام: دقت <b>0.50 ← 1.00</b> · تشخیص نسخهٔ resolve‌شده: <b>0.00 ← 1.00</b> · مهاجرت مکانیکی: <b>0.50 ← 1.00</b></div>
+    </div>
+
+    <div class="uc">
+      <h3>👀 ۵ — بررسی Pull Request: فراتر از «اندازهٔ دیف»</h3>
+      <div class="meta"><span>شروع با: سیمبل‌های تغییریافته + impact</span><span class="ok">راستی‌آزمایی: تست‌های متأثر + drift</span></div>
+<pre><code>cortex pr main --head HEAD</code></pre>
+      <p>خروجی: دیف ← فایل‌های عوض‌شده ← <b>سیمبل‌های عوض‌شده</b> ← impact پایین‌دستی ← تست‌های متأثر ← churn/مالکیت ناحیه ← حرکت معماری ← <b>شواهد ریسک</b>. نتیجه: یک دیفِ ۲۰ خطی که قلبِ auth را لمس می‌کند، درست ریسکی دیده می‌شود؛ نه «یه PR کوچک».</p>
+    </div>
+
+    <div class="uc">
+      <h3>🧩 ۶ — پروژهٔ چندریپویی (frontend + backend + contracts)</h3>
+      <div class="meta"><span>شروع با: workspace</span><span class="ok">هر ریپو هویتش حفظ می‌شود</span></div>
+<pre><code>cortex workspace-add backend ../backend
+cortex workspace-add contracts ../contracts
+cortex workspace-search "payment service"   <span class="c"># جست‌وجوی فدره‌شده در همهٔ ریپوها</span></code></pre>
+      <p>CodeCortex ریپوها را «یکی» جل نمی‌دهد؛ شواهد را <b>فدره</b> می‌کند و رابطه‌های بین‌ریپویی را نگه می‌دارد.</p>
+    </div>
+
+    <div class="uc">
+      <h3>🧠 ۷ — حافظهٔ تیمی: یک بار تصمیم بگیر، همیشه remembered</h3>
+      <div class="meta"><span>شروع با: team-remember</span><span class="ok">تاریخچهٔ revision + تشخیص تعارض</span></div>
+<pre><code>cortex team-remember "برای دسترسی به DB فقط الگوی repository؛ ORM خام ممنوع — تصمیم تیم بک‌اند، ۱۴۰۳"
+cortex team-search "database access policy"</code></pre>
+      <p>حافظهٔ تیمی روی SQLite با WAL است، تاریخچهٔ revision دارد، نوشتهٔ قدیمیِ متعارض را رد می‌کند (نه اینکه بی‌صدا روی جدید رونویسی کند) و metadataِ «چه‌کسی/ازکجا» نگه می‌دارد. ایجنت دیگر هرگز رویکردِ ردشده را از نو پیشنهاد نمی‌دهد.</p>
+    </div>
+
+    <div class="uc">
+      <h3>🔐 ۸ — بررسی امنیتی</h3>
+      <div class="meta"><span>شروع با: مرزهای اعتماد + مسیرهای فراخوانی</span><span class="ok">راستی‌آزمایی: تست‌های منفی/آداب‌دشمن</span></div>
+<pre><code><span class="c"># همهٔ جاهایی که استثنا بلعیده می‌شود (سوءظن به باگ پنهان)</span>
+cortex structural-search --lang python --pattern 'except Exception: pass'
+<span class="c"># مسیر call از ورودی کاربر تا query دیتابیس</span>
+cortex references src/api/handlers.py 44 10</code></pre>
+    </div>
+
+    <div class="uc">
+      <h3>🚦 ۹ — آمادگی انتشار (Release readiness)</h3>
+      <div class="meta"><span>شروع با: CI + امنیت + بنچمارک</span><span class="ok">راستی‌آزمایی: artifactهای دقیقهٔ انتشار</span></div>
+      <p>چرخهٔ انتشار رسمی پروژه: commit دقیق ← ماتریس کیفیت ← چک‌های امنیتی ← build ← smoke test ← checksum ← SBOM ← امضا/attestation ← release. خودتان هم می‌توانید بنچمارک تکرارپذیر بگیرید: <code>python scripts/run_production_benchmark.py</code></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ مرجع دستورات ═══════════ -->
+<section id="commands">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۱۰ — مرجع</span>
+    <h2>📋 مرجع دستورات CLI</h2>
+    <table class="tbl">
+      <tr><th style="width:44%">دستور</th><th>چه می‌کند؟</th></tr>
+      <tr><td><code>cortex init .</code></td><td>راه‌اندازی اولیه در ریپو (پوشهٔ <code>.codecortex/</code>)</td></tr>
+      <tr><td><code>cortex index</code></td><td>ایندکس ریپو و ساخت گراف (بعداً فقط تغییرات را دوباره پارس می‌کند)</td></tr>
+      <tr><td><code>cortex doctor</code></td><td>گزارش سلامت همهٔ لایه‌ها</td></tr>
+      <tr><td><code>cortex architecture</code></td><td>استنباط معماری با confidence و شواهد</td></tr>
+      <tr><td><code>cortex architecture-baseline</code> / <code>architecture-drift</code></td><td>ذخیرهٔ اثرانگشت معماری / مقایسهٔ الان با آن (تشخیص انحراف)</td></tr>
+      <tr><td><code>cortex semantic "..."</code></td><td>جست‌وجوی معنایی + واژگانی + ساختاری (هیبریدی)</td></tr>
+      <tr><td><code>cortex impact AuthService</code></td><td>شعاع آسیب: وابستگان مستقیم/غیرمستقیم + تست‌های متأثر</td></tr>
+      <tr><td><code>cortex definition | references | implementations src/x.py 12 7</code></td><td>تعریف دقیق، رفرنس‌ها و پیاده‌سازی‌های یک موقعیت</td></tr>
+      <tr><td><code>cortex precision-status</code></td><td>جزئیات ایندکس precision: مسیر، تعداد سیمبل، دلیل staleness</td></tr>
+      <tr><td><code>cortex symbol-history src/auth.py 10 80</code></td><td>تاریخچهٔ Git در سطح سیمبل: کامیت‌ها، blame، مالکیت</td></tr>
+      <tr><td><code>cortex pr main --head HEAD</code></td><td>تحلیل PR: سیمبل‌ها + impact + تست‌ها + ریسک</td></tr>
+      <tr><td><code>cortex dependency next</code> / <code>dependency-docs next "..."</code></td><td>نسخهٔ واقعی وابستگی / داکیومنتِ هم‌نسخه (اختیاری، پیش‌فرض خاموش)</td></tr>
+      <tr><td><code>cortex structural-search --lang python --pattern 'old_api($X)'</code></td><td>جست‌وجوی نحوی (AST) — فراخوانی واقعی، نه کامنت</td></tr>
+      <tr><td><code>cortex rewrite-preview ...</code> / <code>rewrite-apply &lt;id&gt;</code></td><td>پیش‌نمایش مهاجرت ساختاری / اعمال امن با هش‌چک و rollback</td></tr>
+      <tr><td><code>cortex edit rename | replace | insert-before | insert-after ...</code></td><td>ویرایش معنایی کنترل‌شده با preflight</td></tr>
+      <tr><td><code>cortex workspace-add name ../repo</code> / <code>workspace-search "..."""</code></td><td>افزودن ریپو به فضای کاری / جست‌وجوی فدره‌شده</td></tr>
+      <tr><td><code>cortex team-remember "..."</code> / <code>team-search "...""</code></td><td>ذخیرهٔ دانش تیمی / جست‌وجو در آن</td></tr>
+      <tr><td><code>cortex benchmark</code> / <code>evidence-benchmark</code></td><td>بنچمارک تکرارپذیر / سنجه‌های کیفیت شواهد</td></tr>
+      <tr><td><code>cortex trace-summary</code></td><td>خلاصهٔ traceها: خطاها، مدت‌زمان، توکن مصرفی</td></tr>
+      <tr><td><code>cortex dashboard</code></td><td>داشبورد محلی Observatory</td></tr>
+      <tr><td><code>cortex agents detect | configure</code></td><td>تشخیص/پیکربندی ایجنت‌ها (merge-safe)</td></tr>
+      <tr><td><code>cortex mcp --path .</code></td><td>اجرای سرور MCP برای ایجنت‌ها</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ مقیاس و سازمان ═══════════ -->
+<section id="scale">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۱۱ — تیم و سازمان</span>
+    <h2>🌐 مقیاس: از لپ‌تاپ تا استقرار سازمانی</h2>
+    <table class="tbl">
+      <tr><th>پروفایل</th><th>شکل معمول</th></tr>
+      <tr><td><b>فردی (Solo)</b></td><td>ریپوی لوکال ← ایندکس لوکال ← حافظهٔ لوکال ← ایجنت با MCP</td></tr>
+      <tr><td><b>تیم</b></td><td>قواعد مشترک ← حافظهٔ تیمی ← workspace ← هوش PR</td></tr>
+      <tr><td><b>فضای کاری بزرگ</b></td><td>ریپوهای زیاد ← شواهد فدره‌شده ← سطح ریموتِ احراز‌هویت‌شده</td></tr>
+      <tr><td><b>توزیع‌شده</b></td><td>gateway ← policy ← coordinator ← ورکرها ← مخازن پایدار</td></tr>
+    </table>
+    <h3>عملیات توزیع‌شده (اختیاری — از سند DISTRIBUTED)</h3>
+    <ul class="plain">
+      <li><b>سرور ریموت <code>cortex-remote</code>:</b> همان سطح MCP روی HTTP/HTTPS با توکن bearer (مقایسهٔ زمان‌ثابت)، TLS 1.2+، سهمیهٔ per-principal و allow-list ابزارها.</li>
+      <li><b>حافظهٔ مشترک توزیع‌شده:</b> رپلیکاها با version vector همگام می‌شوند؛ تعارض‌ها determinstic حل می‌شوند؛ حذف‌ها با tombstone رونوشت می‌شوند.</li>
+      <li><b>ورکرهای چندنودی:</b> صف کار durable؛ هر ورکر قابلیت‌اش (<code>index</code>، <code>retrieve</code>، <code>vector</code>) را اعلام می‌کند و lease دارد؛ کارِ منقضی خودکار دوباره صف می‌شود.</li>
+      <li><b>Vector Store پایدار:</b> پیش‌فرض SQLite بدون سرویس؛ برای مقیاس بزرگ pgvector/Qdrant/Milvus/Weaviate با ثبت provider قابل اتصال است.</li>
+      <li><b>سازمان و Audit:</b> نقش‌های owner/admin/member/viewer، policy هر workspace، سقف کانتکست و لاگ audit با retention قابل‌تنظیم.</li>
+      <li><b>SDK رسمی:</b> کلاینت‌های تایپ‌دار Python و TypeScript برای Platform API.</li>
+    </ul>
+<pre><code><span class="c"># نمونهٔ اجرای ریموت (از سند رسمی)</span>
+export CODECORTEX_REMOTE_TOKEN='replace-with-a-long-random-secret'
+cortex-remote --path /srv/repository --host 127.0.0.1 --port 8765 --node-id coordinator-1</code></pre>
+    <h3>نسخه‌های Cloud و Enterprise (برنامهٔ آینده — Early Access)</h3>
+    <p><b>هستهٔ Community همیشه رایگان و متن‌باز می‌ماند.</b> پلن‌های پرداختی فقط «راحتی عملیاتی» می‌فروشند: Cloud Pro (میزبانی مدیریت‌شده)، Team (چند کاربر + حافظهٔ مشترک + داشبورد تیم) و Enterprise (SSO/SAML، RBAC، audit، استقرار خصوصی).</p>
+  </div>
+</section>
+
+<!-- ═══════════ چیست/چی نیست ═══════════ -->
+<section id="not">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۱۲ — انتظارات درست</span>
+    <h2>🚫 CodeCortex چیست و چی <span style="color:var(--rose)">نیست</span></h2>
+    <table class="tbl">
+      <tr><th>نیست...</th><th>چرا؟</th></tr>
+      <tr><td>یک اپ چت عمومی</td><td>کارش هوش کانتکستِ ریپو است، نه گفتگو</td></tr>
+      <tr><td>سرویس‌دهندهٔ مدل</td><td>فقط کیفیت شواهدِ ورودی به مدل‌ها را بهتر می‌کند</td></tr>
+      <tr><td>لایهٔ درستیِ جادویی</td><td>مدل‌ها و آدم‌ها هنوز می‌توانند اشتباه کنند</td></tr>
+      <tr><td>جایگزین تست‌ها</td><td>اعتبارسنجی به evidence اجرایی واقعی نیاز دارد</td></tr>
+      <tr><td>جایگزین Git</td><td>فقط تاریخچه را «برای کانتکست» مفید می‌کند</td></tr>
+      <tr><td>محصول دیتابیس برداری</td><td>Storage فقط یک مرزِ قابل‌تعویض است</td></tr>
+      <tr><td>جایگزین منبع حقیقت</td><td>سورس کد همیشه authoritative می‌ماند</td></tr>
+      <tr><td>صفحهٔ تبلیغاتیِ بنچمارک</td><td>هر ادعا باید به artifact تکرارپذیر وصل باشد</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section id="faq">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۱۳ — سوالات متداول</span>
+    <h2>❓ FAQ</h2>
+    <div class="grid g2">
+      <div class="card"><h4>❔ جای مدل برنامه‌نویسی را می‌گیرد؟</h4><p>نه. مدل همچنان استدلال و تولید کد می‌کند؛ CodeCortex فقط «محیط شواهد» را بهتر می‌کند.</p></div>
+      <div class="card"><h4>❔ به سرویس ریموت نیاز دارد؟</h4><p>نه. هسته کاملاً لوکال‌فرست و بدون اینترنت کار می‌کند؛ لایه‌های ریموت همه اختیاری‌اند.</p></div>
+      <div class="card"><h4>❔ پنجرهٔ کانتکست بزرگ، این را بی‌نیاز نمی‌کند؟</h4><p>نه. اندازهٔ پنجره و کیفیت شواهد دو مسئلهٔ جدایند.</p></div>
+      <div class="card"><h4>❔ همهٔ روابط دقیق‌اند؟</h4><p>نه — و این عمدی است. روابط استنباطی ابهام را حفظ می‌کنند؛ لایهٔ Precision وقتی ایندکس کامپایلری موجود باشد شواهد exact اضافه می‌کند.</p></div>
+      <div class="card"><h4>❔ بین چند ریپو کار می‌کند؟</h4><p>بله؛ workspaceها شواهد را فدره می‌کنند ولی هویت هر ریپو حفظ می‌شود.</p></div>
+      <div class="card"><h4>❔ خودش کد را ویرایش می‌کند؟</h4><p>ویرایش معنایی کنترل‌شده دارد؛ ولی «خواندنِ هوشمند» و «تغییر» دو دسترسی جدایند و تغییر همیشه مجوز و پیش‌نمایش می‌خواهد.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ وضعیت ═══════════ -->
+<section id="status">
+  <div class="wrap">
+    <span class="sec-badge">■ بخش ۱۴ — وضعیت پروژه</span>
+    <h2>ℹ️ وضعیت، لایسنس و لینک‌ها</h2>
+    <ul class="plain">
+      <li>🧭 <b>وضعیت: Alpha</b> — رابط‌های عمومی هنوز در حال تغییرند و تا نسخهٔ 1.0 ممکن است breaking change رخ دهد.</li>
+      <li>🧪 <b>کیفیت:</b> ۷۱۱ تست پاس، ۲۸ skip، ۰ fail — پوشش ۹۱.۷۴٪ در گزارش hardening.</li>
+      <li>⚡ <b>عملکرد ثبت‌شده:</b> جست‌وجوی تعریف گرم ~0.19–0.23ms · اسکن تازگیِ ۶۰۰ سند ~4.25ms (اعداد تکرارپذیر در <code>HARDENING_REPORT.md</code> و <code>benchmarks/</code>).</li>
+      <li>📄 <b>لایسنس:</b> Apache 2.0 — توسعه‌یافته و نگهداری‌شده توسط <b>بهنام جلالی (Behnam Jalali)</b>.</li>
+      <li>🔒 <b>امنیت:</b> مسیرها قفل به ریشهٔ پروژه، بدون shell=True در subprocessها، بدون دانلود فایل اجرایی از طرف شما، کلیدها فقط از environment variable و حذف‌شده از traceها.</li>
+    </ul>
+    <p style="margin-top:18px">
+      🔗 <a href="https://github.com/BehnamJalaliCo/CodeCortex">ریپوی اصلی گیت‌هاب</a> ·
+      <a href="https://behnamjalalico.github.io/CodeCortex/">مستندات رسمی</a> ·
+      <a href="https://pypi.org/project/codecortex-context-engine/">PyPI</a> ·
+      <a href="https://github.com/BehnamJalaliCo/CodeCortex/issues">گزارش باگ / مشارکت</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>🧠 این صفحه یک <b>راهنمای فارسیِ آموزشیِ مستقل</b> برای پروژهٔ متن‌باز CodeCortex است — ترجمه و ساده‌سازی مستندات رسمی (README، ARCHITECTURE، ADVANCED_INTELLIGENCE، EVIDENCE_FUSION، DISTRIBUTED، INTEGRATIONS، CLOUD_EARLY_ACCESS).</p>
+  <p style="margin-top:8px">هر ادعای فنی این صفحه از مستندات رسمی پروژه برداشته شده · CodeCortex ساختهٔ بهنام جلالی · لایسنس Apache 2.0</p>
+</footer>
+
+</body>
 </html>
